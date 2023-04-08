@@ -1,12 +1,10 @@
 BOARD?=arduino:avr:uno
 PORT?=/dev/ttyACM0
 PROJECT?=EnterValidProjectName
-# SRC?=./1_profiler/1_profiler.ino
-# TARGET_DIR?=./1_profiler/build
 
-.PHONY: default build flash clean
+.PHONY: default build flash clean install_dependencies done distribute diff
 
-default: install_dependencies build flash clean done monitor
+default: install_dependencies diff build flash clean distribute done monitor
 
 install_dependencies:
 	@echo "\n*******************installing dependencies********************\n"
@@ -30,3 +28,12 @@ monitor:
 
 done:
 	@echo "\n*******************Done********************\n"
+
+distribute:
+	@echo "\n*********************generating distributable***********************\n"
+	tar zcvf distributable.tgz *
+
+diff:
+	@echo "\n*******************files change statistics********************\n"
+	@git status
+	@git diff --stat
