@@ -1,8 +1,18 @@
 #include <Arduino_FreeRTOS.h>
 
-#define YELLOW 7
-#define GREEN  6
-#define BLUE   8
+#define YELLOW    6
+#define GREEN     7
+#define BLUE      8
+#define WHITE     4
+#define RED       5
+
+#define RED_BUTTON    2
+#define GREEN_BUTTON  3
+
+
+#define SET(digitalPin) digitalWrite(digitalPin, HIGH)
+#define RESET(digitalPin) digitalWrite(digitalPin, LOW)
+#define TOGGLE(digitalPin) digitalWrite(digitalPin, digitalRead(digitalPin)^1)
 
 typedef int taskProfiler;
 taskProfiler yellowLedProfiler = 0;
@@ -19,27 +29,30 @@ void setup() {
 void yellowLedControllerTask(void *pvParameters){
   pinMode(YELLOW, OUTPUT);
   while(1){
+    SET(YELLOW);
     yellowLedProfiler++;
     Serial.print("YellowLedProfiler: ");Serial.println(yellowLedProfiler);
-    digitalWrite(YELLOW, digitalRead(YELLOW)^1); 
+    RESET(YELLOW);
     delay(300);     
   }
 }
 void greenLedControllerTask(void *pvParameters){
   pinMode(GREEN, OUTPUT);
   while(1){
+    SET(GREEN);
     greenLedProfiler++;
     Serial.print("greenLedProfiler: ");Serial.println(greenLedProfiler);
-    digitalWrite(GREEN, digitalRead(GREEN)^1);
+    RESET(GREEN);
     delay(300);
   }
 }
 void blueLedControllerTask(void *pvParameters){
   pinMode(BLUE, OUTPUT);
   while(1){
+    SET(BLUE);
     blueLedProfiler++;
     Serial.print("blueLedProfiler: ");Serial.println(blueLedProfiler);
-    digitalWrite(BLUE, digitalRead(BLUE)^1);
+    RESET(BLUE);
     delay(300);
   }
 }
