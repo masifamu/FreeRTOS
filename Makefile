@@ -1,3 +1,7 @@
+# this is how to search for library using arduino-cli "arduino-cli lib search adafruit SSD1306  --names"
+
+
+
 BOARD?=arduino:avr:uno
 PORT?=/dev/ttyACM0
 PROJECT?=EnterValidProjectName
@@ -10,6 +14,10 @@ install_dependencies:
 	@echo "\n*******************installing dependencies********************\n"
 	@arduino-cli core install arduino:avr
 	@arduino-cli core install arduino:mbed_nicla
+
+	@arduino-cli lib install "Adafruit SSD1306"
+	@arduino-cli lib install "FreeRTOS"
+	@arduino-cli lib install "OneButton"
 
 build:
 	@echo "\n*******************building project********************\n"
